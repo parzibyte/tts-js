@@ -26,11 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log({ vocesDisponibles })
     posibleIndice = vocesDisponibles.findIndex(voz => IDIOMAS_PREFERIDOS.includes(voz.lang));
     if (posibleIndice === -1) posibleIndice = 0;
-    vocesDisponibles.forEach((voz, a) => {
+    vocesDisponibles.forEach((voz, indice) => {
       const opcion = document.createElement("option");
-      opcion.value = a;
+      opcion.value = indice;
       opcion.innerHTML = voz.name;
-      opcion.selected = a === posibleIndice;
+      opcion.selected = indice === posibleIndice;
       $voces.appendChild(opcion);
     });
   };
@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!textoAEscuchar) return alert("Escribe el texto");
     let mensaje = new SpeechSynthesisUtterance();
     mensaje.voice = vocesDisponibles[$voces.value];
+    mensaje.volume = 1;
     mensaje.rate = 1;
     mensaje.text = textoAEscuchar;
     mensaje.pitch = 1;
